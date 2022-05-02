@@ -1,1 +1,55 @@
-var o=(a,t,e)=>new Promise((i,c)=>{var l=r=>{try{n(e.next(r))}catch(s){c(s)}},d=r=>{try{n(e.throw(r))}catch(s){c(s)}},n=r=>r.done?i(r.value):Promise.resolve(r.value).then(l,d);n((e=e.apply(a,t)).next())});import{renderListWithTemplate as u}from"./utils.js";export default class m{constructor(t,e,i){this.category=t,this.dataSource=e,this.listElement=i}init(){return o(this,null,function*(){let t=yield this.dataSource.getData();const e=this.removeExtraProducts(t);this.renderList(e)})}removeExtraProducts(t){const e=["880RR","985RF","985PR","344YJ"];return t.filter(i=>e.includes(i.Id))}renderList(t){this.listElement.innerHTML="";const e=document.getElementById("product-card-template");u(e,this.listElement,t,this.prepareTemplate)}prepareTemplate(t,e){return t.querySelector("a").href+=e.Id,t.querySelector("img").src=e.Image,t.querySelector("img").alt+=e.Name,t.querySelector(".card__brand").textContent=e.Brand.Name,t.querySelector(".card__name").textContent=e.NameWithoutBrand,t.querySelector(".product-card__price").textContent+=e.FinalPrice,t}}
+import { renderListWithTemplate } from "./utils.js";
+
+export default class ProductList {
+  constructor(category, dataSource, listElement) {
+    this.category = category;
+    this.dataSource = dataSource;
+    this.listElement = listElement;
+  }
+
+  async init() {
+    let list = await this.dataSource.getData();
+    const filterList = this.removeExtraProducts(list);
+    this.renderList(filterList);
+  }
+
+  removeExtraProducts(list) {
+    const neededTents = ["880RR", "985RF", "985PR", "344YJ"];
+    return list.filter((item) => neededTents.includes(item.Id));
+  }
+
+  renderList(list) {
+    // make sure the list is empty
+    this.listElement.innerHTML = "";
+    //get the template
+    const template = document.getElementById("product-card-template");
+    renderListWithTemplate(
+      template,
+      this.listElement,
+      list,
+      this.prepareTemplate
+    );
+  }
+
+  // original method before moving the template logic to utils.js
+  // renderList(list) {
+  //   const template = document.getElementById("product-card-template");
+  //   list.forEach(product => {
+  //     const clone = template.content.cloneNode(true);
+  //     const hydratedTemplate = this.prepareTemplate(clone, product);
+  //     this.listElement.appendChild(hydratedTemplate);
+  //   })
+  // }
+
+  prepareTemplate(template, product) {
+    template.querySelector("a").href += product.Id;
+    template.querySelector("img").src = product.Image;
+    template.querySelector("img").alt += product.Name;
+    template.querySelector(".card__brand").textContent = product.Brand.Name;
+    template.querySelector(".card__name").textContent =
+      product.NameWithoutBrand;
+    template.querySelector(".product-card__price").textContent +=
+      product.FinalPrice;
+    return template;
+  }
+}
