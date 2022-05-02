@@ -15,27 +15,30 @@ export default class ProductDetails {
     // document.getElementById("addToCart").addEventListener("click", addToCart);
     document
       .getElementById("addToCart")
-      .addEventListener("click", this.addToCart.bind(this.productId)); /*Please review this line*/
-    
+      .addEventListener(
+        "click",
+        this.addToCart.bind(this.productId)
+      ); /*Please review this line*/
+
     /*document.getElementById("addToCart").addEventListener("click", "addToCart");*/
 
     const btnadds = document.querySelectorAll("#addToCart");
-    btnadds.forEach((btn)=>{
-        btn.addEventListener("click", (e) =>{
-            e.preventDefault();
-            /*Add animation of button */
-            if (!btn.classList.contains("add")){
-                btn.classList.add("add");
-                const div = document.querySelector(".button-added");
-                div.setAttribute("class","button-add");
-                /*Remove the class animation from button */
-                setTimeout(() =>{
-                    btn.classList.remove("add");
-                    div.classList.remove("button-add");
-                    div.setAttribute("class","button-added");
-                }, 3000);
-            }
-        })
+    btnadds.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        /*Add animation of button */
+        if (!btn.classList.contains("add")) {
+          btn.classList.add("add");
+          const div = document.querySelector(".button-added");
+          div.setAttribute("class", "button-add");
+          /*Remove the class animation from button */
+          setTimeout(() => {
+            btn.classList.remove("add");
+            div.classList.remove("button-add");
+            div.setAttribute("class", "button-added");
+          }, 3000);
+        }
+      });
     });
   }
 
