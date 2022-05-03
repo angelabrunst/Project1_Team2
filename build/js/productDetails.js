@@ -1,70 +1,15 @@
-export default class ProductDetails {
-  constructor(productId, dataSource) {
-    this.productId = productId;
-    this.product = {};
-    this.dataSource = dataSource;
-  }
-
-  async init() {
-    this.product = await this.dataSource.findProductById(this.productId);
-    document.querySelector("main").innerHTML = this.renderProductDetails();
-    // use our datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
-    // once we have the product details we can render out the HTML
-    // once the HTML is rendered we can add a listener to Add to Cart button
-    // Notice the .bind(this). Our callback will not work if we don"t include that line. Review the readings from this week on 'this' to understand why.
-    // document.getElementById("addToCart").addEventListener("click", addToCart);
-    document
-      .getElementById("addToCart")
-      .addEventListener(
-        "click",
-        this.addToCart.bind(this.productId)
-      ); /*Please review this line*/
-
-    /*document.getElementById("addToCart").addEventListener("click", "addToCart");*/
-
-    const btnadds = document.querySelectorAll("#addToCart");
-    btnadds.forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        /*Add animation of button */
-        if (!btn.classList.contains("add")) {
-          btn.classList.add("add");
-          const div = document.querySelector(".button-added");
-          div.setAttribute("class", "button-add");
-          /*Remove the class animation from button */
-          setTimeout(() => {
-            btn.classList.remove("add");
-            div.classList.remove("button-add");
-            div.setAttribute("class", "button-added");
-          }, 3000);
-        }
-      });
-    });
-  }
-
-  addToCart() {
-    localStorage.setItem(this.productId, JSON.stringify(this.product));
-  }
-
-  renderProductDetails() {
-    return `<section class="product-detail">
+var o=(a,s,t)=>new Promise((e,r)=>{var u=d=>{try{i(t.next(d))}catch(c){r(c)}},l=d=>{try{i(t.throw(d))}catch(c){r(c)}},i=d=>d.done?e(d.value):Promise.resolve(d.value).then(u,l);i((t=t.apply(a,s)).next())});export default class p{constructor(s,t){this.productId=s,this.product={},this.dataSource=t}init(){return o(this,null,function*(){this.product=yield this.dataSource.findProductById(this.productId),document.querySelector("main").innerHTML=this.renderProductDetails(),document.getElementById("addToCart").addEventListener("click",this.addToCart.bind(this.productId));const s=document.querySelectorAll("#addToCart");s.forEach(t=>{t.addEventListener("click",e=>{if(e.preventDefault(),!t.classList.contains("add")){t.classList.add("add");const r=document.querySelector(".button-added");r.setAttribute("class","button-add"),setTimeout(()=>{t.classList.remove("add"),r.classList.remove("button-add"),r.setAttribute("class","button-added")},3e3)}})})})}addToCart(){localStorage.setItem(this.productId,JSON.stringify(this.product))}renderProductDetails(){return`<section class="product-detail">
     <h3>${this.product.Brand.Name}</h3>
     <h2 class="divider">${this.product.NameWithoutBrand}</h2>
     <img
       class="divider"
-      src="${this.product.Image}"
+      src="${this.product.Images.PrimaryLarge}"
       alt="${this.product.NameWithoutBrand}"
     />
 
-    <p class="product-card__discount">Retail Price: <strike>$${
-      this.product.SuggestedRetailPrice
-    }</strike></p>
-    <p class="product-card__price"><b>Our Price: $${
-      this.product.ListPrice
-    }</b></p>
-    <p class="product-card__discount">You Save: $${Math.round(
-      this.product.SuggestedRetailPrice - this.product.ListPrice
-    )}</p>
+    <p class="product-card__discount">Retail Price: <strike>$${this.product.SuggestedRetailPrice}</strike></p>
+    <p class="product-card__price"><b>Our Price: $${this.product.ListPrice}</b></p>
+    <p class="product-card__discount">You Save: $${Math.round(this.product.SuggestedRetailPrice-this.product.ListPrice)}</p>
     <p class="product__color">${this.product.Colors[0].ColorName}</p>
     <p class="product__description">
       ${this.product.DescriptionHtmlSimple}
@@ -72,6 +17,4 @@ export default class ProductDetails {
     <div class="product-detail__add">
       <button id="addToCart" data-id="${this.productId}">Add to Cart</button>
     </div>
-  </section>`;
-  }
-}
+  </section>`}}
