@@ -8,7 +8,7 @@ export default class ProductList {
   }
 
   async init() {
-    let list = await this.dataSource.getData();
+    const list = await this.dataSource.getData(this.category);
     const filterList = this.removeExtraProducts(list);
     this.renderList(filterList);
   }
