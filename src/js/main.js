@@ -1,1 +1,3 @@
-console.log("Pending Individual work for week 3");
+import { loadHeaderFooter } from "./utils.js";
+
+loadHeaderFooter();
