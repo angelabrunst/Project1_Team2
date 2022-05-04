@@ -1,11 +1,10 @@
 import ProductData from "./productData.js";
 import ProductDetails from "./productDetails.js";
-import { getParam } from "./utils.js";
+import { loadHeaderFooter, getParam } from "./utils.js";
+
+loadHeaderFooter();
 
 const dataSource = new ProductData();
-// console.log(dataSource.getData());
 const productId = getParam("product");
-// console.log(dataSource.findProductById(productId));
-
 const product = new ProductDetails(productId, dataSource);
 product.init();

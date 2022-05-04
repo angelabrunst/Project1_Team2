@@ -1,23 +1,22 @@
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sleep Outside | Home</title>
+    <title>Sleep Outside | Cart</title>
     <link rel="stylesheet" href="../css/style.css">
-    <!-- HTML to build a product card -->
-    <template id="product-card-template">
-      <li class="product-card">
-        <a href="../product_pages/product-details.html?product=">
+    <template id="cart-card-template">
+      <li class="cart-card divider">
+        <a href="#" class="cart-card__image">
           <img src alt="Image of ">
-          <h3 class="card__brand"></h3>
-          <h2 class="card__name"></h2>
-          <p class="product-card__price">Our Price: $</p>
-          <small><p class="product-card__discount">You save: $</p></small>
         </a>
+        <a href="#">
+          <h2 class="card__name"></h2>
+        </a>
+        <p class="cart-card__color"></p>
+        <p class="cart-card__quantity">qty: 1</p>
+        <p class="cart-card__price">$</p>
       </li>
     </template>
-    <script src="../js/product-listing.js" type="module"></script>
   </head>
-
   <body>
     <header class="divider" id="main-header">
       <!-- reference partials/header.html -->
@@ -30,13 +29,16 @@
         </div>
       </div>
       <section class="products">
-        <h2>Top Products: <span class="title"></span></h2>
-        <ul class="product-list">
-          <!-- product list will go here from product-listing.js -->
-        </ul>
+        <h2>My Cart</h2>
+        <ul class="product-list"></ul>
+        <div class="list-footer hide">
+          <a href="../checkout">Checkout</a>
+          <p class="list-total">Total:</p>
+        </div>
       </section>
     </main>
     <footer id="main-footer"></footer>
+    <script src="../js/cart.js" type="module"></script>
   
 
 </body></html>

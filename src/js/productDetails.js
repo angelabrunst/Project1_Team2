@@ -8,42 +8,33 @@ export default class ProductDetails {
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
     document.querySelector("main").innerHTML = this.renderProductDetails();
-    // use our datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
-    // once we have the product details we can render out the HTML
-    // once the HTML is rendered we can add a listener to Add to Cart button
-    // Notice the .bind(this). Our callback will not work if we don"t include that line. Review the readings from this week on 'this' to understand why.
-    // document.getElementById("addToCart").addEventListener("click", addToCart);
     document
       .getElementById("addToCart")
-      .addEventListener(
-        "click",
-        this.addToCart.bind(this.productId)
-      ); /*Please review this line*/
+      .addEventListener("click", this.addToCart.bind(this));
 
-    /*document.getElementById("addToCart").addEventListener("click", "addToCart");*/
-
-    const btnadds = document.querySelectorAll("#addToCart");
-    btnadds.forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        /*Add animation of button */
-        if (!btn.classList.contains("add")) {
-          btn.classList.add("add");
-          const div = document.querySelector(".button-added");
-          div.setAttribute("class", "button-add");
-          /*Remove the class animation from button */
-          setTimeout(() => {
-            btn.classList.remove("add");
-            div.classList.remove("button-add");
-            div.setAttribute("class", "button-added");
-          }, 3000);
-        }
-      });
-    });
+    // const btnadds = document.querySelectorAll("#addToCart");
+    // btnadds.forEach((btn) => {
+    //   btn.addEventListener("click", (e) => {
+    //     e.preventDefault();
+    //     /*Add animation of button */
+    //     if (!btn.classList.contains("add")) {
+    //       btn.classList.add("add");
+    //       const div = document.querySelector(".button-added");
+    //       div.setAttribute("class", "button-add");
+    //       /*Remove the class animation from button */
+    //       setTimeout(() => {
+    //         btn.classList.remove("add");
+    //         div.classList.remove("button-add");
+    //         div.setAttribute("class", "button-added");
+    //       }, 3000);
+    //     }
+    //   });
+    // });
   }
 
   addToCart() {
-    localStorage.setItem(this.productId, JSON.stringify(this.product));
+    localStorage.setItem("so-cart", JSON.stringify(this.product));
+    // localStorage.setItem(this.productId, JSON.stringify(this.product));
   }
 
   renderProductDetails() {
