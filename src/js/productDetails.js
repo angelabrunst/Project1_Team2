@@ -1,44 +1,55 @@
+import { setLocalStorage, getLocalStorage, loadHeaderFooter } from "./utils.js";
+
+loadHeaderFooter();
+
 export default class ProductDetails {
-  constructor(productId, dataSource) {
-    this.productId = productId;
-    this.product = {};
-    this.dataSource = dataSource;
-  }
+    constructor(productId, dataSource) {
+        this.productId = productId;
+        this.product = {};
+        this.dataSource = dataSource;
+    }
 
-  async init() {
-    this.product = await this.dataSource.findProductById(this.productId);
-    document.querySelector("main").innerHTML = this.renderProductDetails();
-    document
-      .getElementById("addToCart")
-      .addEventListener("click", this.addToCart.bind(this));
+    async init() {
+        this.product = await this.dataSource.findProductById(this.productId);
+        document.querySelector("main").innerHTML = this.renderProductDetails();
+        document
+            .getElementById("addToCart")
+            .addEventListener("click", this.addToCart.bind(this));
 
-    // const btnadds = document.querySelectorAll("#addToCart");
-    // btnadds.forEach((btn) => {
-    //   btn.addEventListener("click", (e) => {
-    //     e.preventDefault();
-    //     /*Add animation of button */
-    //     if (!btn.classList.contains("add")) {
-    //       btn.classList.add("add");
-    //       const div = document.querySelector(".button-added");
-    //       div.setAttribute("class", "button-add");
-    //       /*Remove the class animation from button */
-    //       setTimeout(() => {
-    //         btn.classList.remove("add");
-    //         div.classList.remove("button-add");
-    //         div.setAttribute("class", "button-added");
-    //       }, 3000);
-    //     }
-    //   });
-    // });
-  }
+        // const btnadds = document.querySelectorAll("#addToCart");
+        // btnadds.forEach((btn) => {
+        //   btn.addEventListener("click", (e) => {
+        //     e.preventDefault();
+        //     /*Add animation of button */
+        //     if (!btn.classList.contains("add")) {
+        //       btn.classList.add("add");
+        //       const div = document.querySelector(".button-added");
+        //       div.setAttribute("class", "button-add");
+        //       /*Remove the class animation from button */
+        //       setTimeout(() => {
+        //         btn.classList.remove("add");
+        //         div.classList.remove("button-add");
+        //         div.setAttribute("class", "button-added");
+        //       }, 3000);
+        //     }
+        //   });
+        // });
+    }
 
-  addToCart() {
-    localStorage.setItem("so-cart", JSON.stringify(this.product));
-    // localStorage.setItem(this.productId, JSON.stringify(this.product));
-  }
+    addToCart() {
+        // to fix the cart we need to get anything that is in the cart already.
+        var cartContents = getLocalStorage("so-cart");
+        //check to see if there was anything there
+        if (!cartContents) {
+            cartContents = [];
+        }
+        // then add the current product to the list
+        cartContents.push(this.product);
+        setLocalStorage("so-cart", cartContents);
+    }
 
-  renderProductDetails() {
-    return `<section class="product-detail">
+    renderProductDetails() {
+        return `<section class="product-detail">
     <h3>${this.product.Brand.Name}</h3>
     <h2 class="divider">${this.product.NameWithoutBrand}</h2>
     <img
@@ -61,8 +72,8 @@ export default class ProductDetails {
       ${this.product.DescriptionHtmlSimple}
     </p>
     <div class="product-detail__add">
-      <button id="addToCart" data-id="${this.productId}">Add to Cart</button>
+      <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
     </div>
   </section>`;
-  }
+    }
 }
