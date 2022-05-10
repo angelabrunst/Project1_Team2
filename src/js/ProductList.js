@@ -9,7 +9,9 @@ export default class ProductList {
 
   async init() {
     const list = await this.dataSource.getData(this.category);
+    //console.log(list);
     this.renderList(list);
+    //set the title to the current category
     document.querySelector(".title").innerHTML = this.category;
   }
 

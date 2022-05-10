@@ -8,9 +8,7 @@ export default class CartList {
   }
 
   async init() {
-    const cartItem = getLocalStorage(this.key);
-    let list = [];
-    list.push(cartItem);
+    const list = getLocalStorage(this.key);
     this.calculateListTotal(list);
     this.renderList(list);
   }
