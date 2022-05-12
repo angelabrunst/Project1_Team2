@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils";
+import { getLocalStorage, setLocalStorage, alertMessage } from "./utils";
 import ExternalServices from "./ExternalServices";
 
 export default class CheckoutProcess {
@@ -72,8 +72,14 @@ export default class CheckoutProcess {
     try {
       const res = await services.checkout(json);
       //console.log(res);
+      setLocalStorage("so-cart", []);
+      location.assign("/checkout/checkedout");
     } catch (err) {
       //console.log(err);
+      //PENDING: Get rid of any alerts
+      for (let message in err.message) {
+        alertMessage(err.message[message]);
+      }
     }
   }
 }
