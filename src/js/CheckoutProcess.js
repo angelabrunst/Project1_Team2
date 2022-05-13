@@ -69,6 +69,8 @@ export default class CheckoutProcess {
     //console.log(json);
 
     // call the checkout method in our ExternalServices module and send it our data object.
+    // For testing the ckech out form use
+    // city: "Rexburg", state: "ID", zip: "83440", cardNumber: "1234123412341234", expiration: "8/21", code: "123",
     try {
       const res = await services.checkout(json);
       //console.log(res);

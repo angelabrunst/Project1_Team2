@@ -29,10 +29,6 @@ export default class ExternalServices {
       },
       body: JSON.stringify(payload),
     };
-    return await fetch(baseURL + "checkout/", options)
-      .then(convertToJson)
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    return await fetch(baseURL + "checkout/", options).then(convertToJson);
   }
 }
