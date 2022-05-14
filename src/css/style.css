@@ -307,3 +307,66 @@ footer {
   width: 25%;
   font-size: 1em;
 }
+/* Prdouct Comments */
+body {
+  background-color: #fff;
+}
+.container {
+  background-color: #d0d0d0;
+  width: 250px;
+}
+.addtxt {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 13px;
+  width: 350px;
+  background-color: #d0d0d0;
+  font-weight: 500;
+}
+.second {
+  width: 350px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 10px 10px 5px #d0d0d0;
+}
+.text1 {
+  font-size: 13px;
+  font-weight: 500;
+  color: #303030;
+}
+.text2 {
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 6px;
+  color: #303030;
+}
+.text3 {
+  font-size: 13px;
+  font-weight: 500;
+  margin-right: 4px;
+  color: #f0a868;
+}
+.text3o {
+  color: #f0a868;
+}
+.text4 {
+  font-size: 13px;
+  font-weight: 500;
+  color: #303030;
+}
+.text4i {
+  color: #f0a868;
+}
+.text4o {
+  color: white;
+}
+.thumbup {
+  font-size: 13px;
+  font-weight: 500;
+  margin-right: 5px;
+}
+.thumbupo {
+  color: #f0a868;
+}
+/* End of Product Comments */
