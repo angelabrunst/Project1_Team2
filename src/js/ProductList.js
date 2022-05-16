@@ -30,7 +30,14 @@ export default class ProductList {
 
   prepareTemplate(template, product) {
     template.querySelector("a").href += product.Id;
-    template.querySelector("img").src = product.Images.PrimaryMedium;
+    template.querySelector("img").src = product.Images.PrimarySmall;
+    template.querySelector("img").srcset +=
+      product.Images.PrimaryMedium +
+      " 1x, " +
+      product.Images.PrimaryLarge +
+      " 2x, " +
+      product.Images.PrimaryExtraLarge +
+      " 3x";
     template.querySelector("img").alt += product.Name;
     template.querySelector(".card__brand").textContent = product.Brand.Name;
     template.querySelector(".card__name").textContent =
