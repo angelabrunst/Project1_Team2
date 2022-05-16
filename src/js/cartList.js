@@ -5,6 +5,7 @@ export default class CartList {
     this.key = key;
     this.listElement = listElement;
     this.total = 0;
+    this.totalItems = 0; //Jermain
   }
 
   async init() {
@@ -16,7 +17,13 @@ export default class CartList {
   calculateListTotal(list) {
     const amounts = list.map((item) => item.FinalPrice);
     this.total = amounts.reduce((sum, item) => sum + item);
+    this.totalItems = list.length;
   }
+  calculateTotalItems() {
+    /*JERMAIN CAHNGE*/
+    this.init(); /*JERMAIN CAHNGE*/
+    return this.totalItems; /*JERMAIN CAHNGE*/
+  } /*JERMAIN CAHNGE*/
 
   renderList(list) {
     // make sure the list is empty
