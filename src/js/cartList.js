@@ -41,7 +41,14 @@ export default class CartList {
 
   prepareTemplate(template, product) {
     template.querySelector(".cart-card__image img").src =
-      product.Images.PrimaryMedium;
+      product.Images.PrimarySmall;
+    template.querySelector(".cart-card__image img").srcset +=
+      product.Images.PrimaryMedium +
+      " 1x, " +
+      product.Images.PrimaryLarge +
+      " 2x, " +
+      product.Images.PrimaryExtraLarge +
+      " 3x";
     template.querySelector(".cart-card__image img").alt += product.Name;
     template.querySelector(".card__name").textContent = product.Name;
     template.querySelector(".cart-card__color").textContent =
