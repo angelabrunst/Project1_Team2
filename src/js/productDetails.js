@@ -71,12 +71,11 @@ export default class ProductDetails {
     return `<section class="product-detail">
     <h3>${this.product.Brand.Name}</h3>
     <h2 class="divider">${this.product.NameWithoutBrand}</h2>
-    <img
-      class="divider"
-      src="${this.product.Images.PrimaryLarge}"
-      alt="${this.product.NameWithoutBrand}"
-    />
-
+    <img class="divider" src="${this.product.Images.PrimarySmall}" alt="${
+      this.product.NameWithoutBrand
+    }" srcset="${this.product.Images.PrimaryMedium} 1x, ${
+      this.product.Images.PrimaryLarge
+    } 2x, ${this.product.Images.PrimaryExtraLarge} 3x"  />
     <p class="product-card__discount">Retail Price: <strike>$${
       this.product.SuggestedRetailPrice
     }</strike></p>
