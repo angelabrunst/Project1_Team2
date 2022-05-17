@@ -1,4 +1,9 @@
-import { setLocalStorage, getLocalStorage, loadHeaderFooter } from "./utils.js";
+import {
+  setLocalStorage,
+  getLocalStorage,
+  loadHeaderFooter,
+  alertMessage,
+} from "./utils.js";
 import CartList from "./cartList.js"; /*JERMAIN CAHNGE*/
 
 loadHeaderFooter();
@@ -29,7 +34,9 @@ export default class ProductDetails {
     // then add the current product to the list
     cartContents.push(this.product);
     setLocalStorage("so-cart", cartContents);
+    alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
   }
+
   animation() {
     const btnadds = document.querySelectorAll("#addToCart");
     btnadds.forEach((btn) => {
@@ -67,6 +74,7 @@ export default class ProductDetails {
       });
     });
   }
+
   renderProductDetails() {
     return `<section class="product-detail">
     <h3>${this.product.Brand.Name}</h3>

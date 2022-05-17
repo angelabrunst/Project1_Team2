@@ -1,1 +1,65 @@
-var m=(c,t,e)=>new Promise((a,i)=>{var n=r=>{try{s(e.next(r))}catch(l){i(l)}},o=r=>{try{s(e.throw(r))}catch(l){i(l)}},s=r=>r.done?a(r.value):Promise.resolve(r.value).then(n,o);s((e=e.apply(c,t)).next())});import{renderListWithTemplate as h,getLocalStorage as g}from"./utils.js";export default class y{constructor(t,e){this.key=t,this.listElement=e,this.total=0,this.totalItems=0}init(){return m(this,null,function*(){const t=g(this.key);this.calculateListTotal(t),this.renderList(t)})}calculateListTotal(t){const e=t.map(a=>a.FinalPrice);this.total=e.reduce((a,i)=>a+i),this.totalItems=t.length}calculateTotalItems(){return this.init(),this.totalItems}renderList(t){this.listElement.innerHTML="";const e=document.getElementById("cart-card-template");h(e,this.listElement,t,this.prepareTemplate),document.querySelector(".list-total").innerText+=` $${this.total}`}prepareTemplate(t,e){return t.querySelector(".cart-card__image img").src=e.Images.PrimarySmall,t.querySelector(".cart-card__image img").srcset+=e.Images.PrimaryMedium+" 1x, "+e.Images.PrimaryLarge+" 2x, "+e.Images.PrimaryExtraLarge+" 3x",t.querySelector(".cart-card__image img").alt+=e.Name,t.querySelector(".card__name").textContent=e.Name,t.querySelector(".cart-card__color").textContent=e.Colors[0].ColorName,t.querySelector(".cart-card__price").textContent+=e.FinalPrice,t}}
+var m = (c, t, e) =>
+  new Promise((a, i) => {
+    var n = (r) => {
+        try {
+          s(e.next(r));
+        } catch (l) {
+          i(l);
+        }
+      },
+      o = (r) => {
+        try {
+          s(e.throw(r));
+        } catch (l) {
+          i(l);
+        }
+      },
+      s = (r) => (r.done ? a(r.value) : Promise.resolve(r.value).then(n, o));
+    s((e = e.apply(c, t)).next());
+  });
+import { renderListWithTemplate as h, getLocalStorage as g } from "./utils.js";
+export default class y {
+  constructor(t, e) {
+    (this.key = t),
+      (this.listElement = e),
+      (this.total = 0),
+      (this.totalItems = 0);
+  }
+  init() {
+    return m(this, null, function* () {
+      const t = g(this.key);
+      this.calculateListTotal(t), this.renderList(t);
+    });
+  }
+  calculateListTotal(t) {
+    const e = t.map((a) => a.FinalPrice);
+    (this.total = e.reduce((a, i) => a + i)), (this.totalItems = t.length);
+  }
+  calculateTotalItems() {
+    return this.init(), this.totalItems;
+  }
+  renderList(t) {
+    this.listElement.innerHTML = "";
+    const e = document.getElementById("cart-card-template");
+    h(e, this.listElement, t, this.prepareTemplate),
+      (document.querySelector(".list-total").innerText += ` $${this.total}`);
+  }
+  prepareTemplate(t, e) {
+    return (
+      (t.querySelector(".cart-card__image img").src = e.Images.PrimarySmall),
+      (t.querySelector(".cart-card__image img").srcset +=
+        e.Images.PrimaryMedium +
+        " 1x, " +
+        e.Images.PrimaryLarge +
+        " 2x, " +
+        e.Images.PrimaryExtraLarge +
+        " 3x"),
+      (t.querySelector(".cart-card__image img").alt += e.Name),
+      (t.querySelector(".card__name").textContent = e.Name),
+      (t.querySelector(".cart-card__color").textContent =
+        e.Colors[0].ColorName),
+      (t.querySelector(".cart-card__price").textContent += e.FinalPrice),
+      t
+    );
+  }
+}
