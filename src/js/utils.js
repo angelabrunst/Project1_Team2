@@ -70,12 +70,13 @@ export async function loadHeaderFooter() {
   renderWithTemplate(footer, footerElemtnt);
 }
 
-export function alertMessage(message, scroll = true) {
+export function alertMessage(message, scroll = true, duration = 3000) {
   // create element to hold our alert
   const alert = document.createElement("div");
   // add a class to style the alert
   alert.classList.add("alert");
   // set the contents. You should have a message and an X or something the user can click on to remove
+  //alert.innerText = `${message} X`;
   alert.innerHTML = `<p>${message}</p><span>X</span>`;
   // add a listener to the alert to see if they clicked on the X
   // if they did then remove the child
@@ -93,9 +94,9 @@ export function alertMessage(message, scroll = true) {
   if (scroll) window.scrollTo(0, 0);
 
   // left this here to show how you could remove the alert automatically after a certain amount of time.
-  // setTimeout(function () {
-  //   main.removeChild(alert);
-  // }, duration);
+  setTimeout(function () {
+    main.removeChild(alert);
+  }, duration);
 }
 
 export function removeAllAlerts() {
