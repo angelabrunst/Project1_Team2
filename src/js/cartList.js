@@ -6,16 +6,33 @@ export default class CartList {
     this.listElement = listElement;
     this.total = 0;
     this.totalItems = 0; //Jermain
+    this.newlistElements = [];
   }
 
   async init() {
     const list = getLocalStorage(this.key);
-    this.calculateListTotal(list);
-    this.renderList(list);
+    this.newlistElements = this.newListOfProduct(list);
+    this.calculateListTotal(this.newlistElements);
+    this.renderList(this.newlistElements);
+  }
+  newListOfProduct(list) {
+    /*JERMAIN CAHNGE*/
+    let newarray = list;
+    let finalarray = [];
+    while (newarray.length > 0) {
+      let x = [];
+      let temp = newarray[0];
+      x = newarray.filter((item) => item.Id == temp.Id);
+      let hola = { qty: x.length };
+      Object.assign(temp, hola);
+      finalarray.push(temp);
+      newarray = newarray.filter((item) => item.Id !== temp.Id);
+    }
+    return finalarray;
   }
 
   calculateListTotal(list) {
-    const amounts = list.map((item) => item.FinalPrice);
+    const amounts = list.map((item) => item.FinalPrice * item.qty);
     this.total = amounts.reduce((sum, item) => sum + item);
     this.totalItems = list.length;
   }
@@ -55,6 +72,8 @@ export default class CartList {
       product.Colors[0].ColorName;
     template.querySelector(".cart-card__price").textContent +=
       product.FinalPrice;
+    template.querySelector(".cart-card__quantity").textContent =
+      "qty: " + product.qty;
     return template;
   }
 }
