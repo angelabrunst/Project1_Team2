@@ -47,7 +47,7 @@ export default class Admin {
         )
         .join("");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   }
 }
