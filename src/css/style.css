@@ -430,6 +430,7 @@ path {
   height: 250px;
   width: 100%;
   text-align: center;
+  background-image: url("../images/store.jpg");
 }
 .login-register h2{
   text-align: center;
