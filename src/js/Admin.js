@@ -47,13 +47,13 @@ export default class Admin {
         )
         .join("");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   }
 }
 
 // why do this as functions returning html instead of a template? Both of these are single use. Templates as we have used them make more sense for re-use.
-// using a template would be another valid solution for this however...
+// using a template would be another valid solution for this however... //${registrer()}
 function loginForm() {
   return `<fieldset class="login-form">
   <legend>Login</legend>
