@@ -13,6 +13,7 @@ export default class ProductDetails {
     this.productId = productId;
     this.product = {};
     this.dataSource = dataSource;
+    this.slideIndex = 1;
   }
 
   async init() {
@@ -22,6 +23,11 @@ export default class ProductDetails {
       .getElementById("addToCart")
       .addEventListener("click", this.addToCart.bind(this));
     this.animation();
+    this.showSlides(this.slideIndex);
+    
+    
+
+    
   }
 
   addToCart() {
@@ -75,15 +81,83 @@ export default class ProductDetails {
     });
   }
 
+  showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {this.slideIndex = 1}
+    if (n < 1) {this.slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[this.slideIndex - 1].style.display = "block";
+    dots[this.slideIndex - 1].className += " active";
+  }
+  plusSlides(n) {
+    this.showSlides(this.slideIndex += n);
+  }
+  currentSlide(n) {
+    this.showSlides(this.slideIndex = n);
+  }
+
   renderProductDetails() {
+    this.images = "";
+    if (this.product.Images.ExtraImages){
+      if (this.product.Images.ExtraImages.length == 3){
+        this.images = ` 
+        <div class="slideshow-container">
+
+          <div class="mySlides fade">
+            <div class="numbertext">1 / 3</div>
+            <img class="divider" src=${this.product.Images.ExtraImages[0].Src} >
+            <div class="text">Caption Text</div>
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">2 / 3</div>
+            <img class="divider" src=${this.product.Images.ExtraImages[1].Src} >
+            <div class="text">Caption Two</div>
+          </div>
+
+          <div class="mySlides fade">
+            <div class="numbertext">3 / 3</div>
+            <img class="divider" src=${this.product.Images.ExtraImages[2].Src} >
+            <div class="text">Caption Three</div>
+          </div>
+
+          <button class="prev">❮</button>
+          <button class="next">❯</button>
+
+        </div>
+        <br>
+        <div style="text-align:center">
+          <span class="dot" id="dot1"></span> 
+          <span class="dot" id="dot1"></span> 
+          <span class="dot" id="dot1"></span> 
+        </div>
+        `;
+      }else{
+        this.images = ` <img class="divider" src="${this.product.Images.PrimarySmall}" alt="${
+          this.product.NameWithoutBrand
+        }" srcset="${this.product.Images.PrimaryMedium} 1x, ${
+          this.product.Images.PrimaryLarge
+        } 2x, ${this.product.Images.PrimaryExtraLarge} 3x"  />`;
+      }
+    }else{
+      this.images = ` <img class="divider" src="${this.product.Images.PrimarySmall}" alt="${
+        this.product.NameWithoutBrand
+      }" srcset="${this.product.Images.PrimaryMedium} 1x, ${
+        this.product.Images.PrimaryLarge
+      } 2x, ${this.product.Images.PrimaryExtraLarge} 3x"  />`;
+    }
+
     return `<section class="product-detail">
     <h3>${this.product.Brand.Name}</h3>
     <h2 class="divider">${this.product.NameWithoutBrand}</h2>
-    <img class="divider" src="${this.product.Images.PrimarySmall}" alt="${
-      this.product.NameWithoutBrand
-    }" srcset="${this.product.Images.PrimaryMedium} 1x, ${
-      this.product.Images.PrimaryLarge
-    } 2x, ${this.product.Images.PrimaryExtraLarge} 3x"  />
+    ${this.images}
     <p class="product-card__discount">Retail Price: <strike>$${
       this.product.SuggestedRetailPrice
     }</strike></p>
@@ -102,4 +176,5 @@ export default class ProductDetails {
     </div>
   </section>`;
   }
+  
 }
