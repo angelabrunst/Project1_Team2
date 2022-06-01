@@ -500,6 +500,7 @@ path {
   height: 250px;
   width: 100%;
   text-align: center;
+  background-image: url("../src/images/store.jpg");
 }
 
 .login-register h2 {
